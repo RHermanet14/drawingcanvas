@@ -16,6 +16,10 @@
       {
         "command": "drawingcanvas.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "drawingcanvas.openWindow",
+        "title": "Open Window"
       }
     ]
   },
