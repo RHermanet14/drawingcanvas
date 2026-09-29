@@ -18,17 +18,16 @@ export function activate(context: vscode.ExtensionContext) {
     			<style>
         			* {
             			overflow: hidden;
+						background: url("https://augment-assets.com/augment-hero-sm.png");
         			}
         			body {
             			text-align: center;
+						background: rgba(255, 255, 255, 0);
         			}
    				</style>
 			</head>
 
 			<body>
-    			<h1>Drawing Canvas</h1>
-    			<b>Draw on top of lines of code</b>
-    			<hr>
     			<canvas id="canvas"></canvas>
     			<script src="${scriptUri}"></script>
 			</body>
