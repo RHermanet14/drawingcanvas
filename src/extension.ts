@@ -8,6 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
 		const scriptUri = panel.webview.asWebviewUri(
 			vscode.Uri.joinPath(context.extensionUri, 'media', 'main.js')
 		);
+		const sizeScript = panel.webview.asWebviewUri(vscode.Uri.joinPath(context.extensionUri, 'media', 'size.js'));
 		panel.webview.html = `
 			<!DOCTYPE html>
 			<html lang="en">
@@ -28,6 +29,10 @@ export function activate(context: vscode.ExtensionContext) {
 			</head>
 
 			<body>
+				<input type="number" id="psize" name="psize" min="1" max="100" style="color:white; font-size:160%;">
+				px
+				<script src="${sizeScript}"></script>
+
     			<canvas id="canvas"></canvas>
     			<script src="${scriptUri}"></script>
 			</body>
