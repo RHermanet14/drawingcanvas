@@ -30,7 +30,7 @@ export function activate(context: vscode.ExtensionContext) {
 			<body>
 				<input type="number" id="psize" name="psize" min="1" max="100" value="5" style="color:white; font-size:160%;">
 				px
-
+				<input type="color" id="pColor" name="pColor" value="blue">
     			<canvas id="canvas"></canvas>
     			<script src="${scriptUri}"></script>
 			</body>
