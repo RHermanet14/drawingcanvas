@@ -1,5 +1,4 @@
 window.addEventListener('load', ()=>{
-      
     resize(); // Resizes the canvas once the window loads
     document.addEventListener('mousedown', startPainting);
     document.addEventListener('mouseup', stopPainting);
@@ -9,6 +8,18 @@ window.addEventListener('load', ()=>{
   
 const canvas = document.querySelector('#canvas');
 const ctx = canvas.getContext('2d');
+
+const sizeInput = document.getElementById('psize');
+sizeInput.addEventListener('wheel', (event) => {
+    event.preventDefault();
+    const min = Number(sizeInput.min) || 1;
+    const max = Number(sizeInput.max) || 100;
+    let size = Number(sizeInput.value) || 5;
+
+    size += event.deltaY > 0 ? -1 : 1;
+    size = Math.min(max, Math.max(min, size));
+    sizeInput.value = size;
+},{passive: false});
 
 function resize(){
   ctx.canvas.width = window.innerWidth;
@@ -34,8 +45,8 @@ function stopPainting(){
   
 function sketch(event){
   if (!paint) {return;}
+  ctx.lineWidth = Number(document.getElementById('psize').value) || 5;
   ctx.beginPath();
-  ctx.lineWidth = 5;
   ctx.lineCap = 'round';
   ctx.strokeStyle = 'blue';
   ctx.moveTo(coord.x, coord.y);
