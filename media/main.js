@@ -48,7 +48,7 @@ function sketch(event){
   ctx.lineWidth = Number(document.getElementById('psize').value) || 5;
   ctx.beginPath();
   ctx.lineCap = 'round';
-  ctx.strokeStyle = 'blue';
+  ctx.strokeStyle = document.getElementById('pcolor').value;
   ctx.moveTo(coord.x, coord.y);
   getPosition(event);
   ctx.lineTo(coord.x , coord.y);
