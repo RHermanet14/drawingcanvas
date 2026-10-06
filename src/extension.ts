@@ -2,12 +2,21 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
+function getUrl() {
+	const editor = vscode.window.activeTextEditor;
+	if (!editor) return;
+
+	const url = editor.document.uri.toString();
+	return url;
+}
+
 export function activate(context: vscode.ExtensionContext) {
 	const init = vscode.commands.registerCommand('drawingcanvas.openWindow', () => {
 		const panel = vscode.window.createWebviewPanel('overlay', 'Overlay',vscode.ViewColumn.One, {enableScripts: true});
 		const scriptUri = panel.webview.asWebviewUri(
 			vscode.Uri.joinPath(context.extensionUri, 'media', 'main.js')
 		);
+		const url = getUrl();
 		panel.webview.html = `
 			<!DOCTYPE html>
 			<html lang="en">
@@ -18,7 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
     			<style>
         			* {
             			overflow: hidden;
-						background: url("https://augment-assets.com/augment-hero-sm.png");
+						background: url("${url}");
         			}
         			body {
             			text-align: center;
