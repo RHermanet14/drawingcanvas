@@ -2,12 +2,10 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-function getUrl() {
+function getFile(): string {
 	const editor = vscode.window.activeTextEditor;
-	if (!editor) return;
-
-	const url = editor.document.uri.toString();
-	return url;
+	if (!editor) { return ""; }
+	return editor.document.getText();
 }
 
 export function activate(context: vscode.ExtensionContext) {
@@ -16,7 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
 		const scriptUri = panel.webview.asWebviewUri(
 			vscode.Uri.joinPath(context.extensionUri, 'media', 'main.js')
 		);
-		const url = getUrl();
+		const file = getFile();
 		panel.webview.html = `
 			<!DOCTYPE html>
 			<html lang="en">
@@ -25,21 +23,42 @@ export function activate(context: vscode.ExtensionContext) {
     			<meta name="viewport" content=
             		"width=device-width, initial-scale=1.0">
     			<style>
-        			* {
+        			html, body {
+            			margin: 0;
+           				width: 100%;
+            			height: 100%;
             			overflow: hidden;
-						background: url("${url}");
         			}
-        			body {
-            			text-align: center;
-						background: rgba(255, 255, 255, 0);
-        			}
-   				</style>
+
+        			#background {
+    					position: fixed;
+    					inset: 0;
+    					z-index: 0;
+    					pointer-events: none;
+					}
+
+					#canvas {
+    					position: fixed;
+    					inset: 0;
+    					z-index: 1;
+    					pointer-events: auto;
+					}
+
+					#psize, #pcolor {
+    					position: fixed;
+    					top: 10px;
+    					left: 10px;
+    					z-index: 2;
+					}
+    			</style>
 			</head>
 
 			<body>
 				<input type="number" id="psize" name="psize" min="1" max="100" value="5" style="color:white; font-size:160%;">
 				px
 				<input type="color" id="pcolor" name="pcolor" value="blue">
+				
+				<pre id="background">${file}</pre>
     			<canvas id="canvas"></canvas>
     			<script src="${scriptUri}"></script>
 			</body>
