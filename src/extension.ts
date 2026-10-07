@@ -34,6 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
     					position: fixed;
     					inset: 0;
     					z-index: 0;
+						top: 30px;
     					pointer-events: none;
 					}
 
@@ -44,20 +45,31 @@ export function activate(context: vscode.ExtensionContext) {
     					pointer-events: auto;
 					}
 
-					#psize, #pcolor {
-    					position: fixed;
+					#psize, #pcolor, #eraser {
+						position: fixed;
     					top: 10px;
+						z-index: 2;
+					}
+
+					#psize {				
     					left: 10px;
-    					z-index: 2;
+						width: 50px;	
+					}
+						
+					#pcolor {
+						left: 75px;
+					}
+						
+					#eraser {
+						left: 125px;
 					}
     			</style>
 			</head>
 
 			<body>
-				<input type="number" id="psize" name="psize" min="1" max="100" value="5" style="color:white; font-size:160%;">
-				px
+				<input type="number" id="psize" name="psize" min="1" max="100" value="5" style="font-size:160%;">
 				<input type="color" id="pcolor" name="pcolor" value="blue">
-				
+				<input type="checkbox" id="eraser" name="eraser">
 				<pre id="background">${file}</pre>
     			<canvas id="canvas"></canvas>
     			<script src="${scriptUri}"></script>
