@@ -21,6 +21,11 @@ sizeInput.addEventListener('wheel', (event) => {
     sizeInput.value = size;
 },{passive: false});
 
+const checkbox = document.getElementById('eraser');
+checkbox.addEventListener('change', () => {
+  ctx.globalCompositeOperation = checkbox.checked ? 'destination-out' : 'seource-over';
+});
+
 function resize(){
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
