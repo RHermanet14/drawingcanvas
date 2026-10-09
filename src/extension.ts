@@ -8,6 +8,13 @@ function getFile(): string {
 	return editor.document.getText();
 }
 
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
 export function activate(context: vscode.ExtensionContext) {
 	const init = vscode.commands.registerCommand('drawingcanvas.openWindow', () => {
 		const panel = vscode.window.createWebviewPanel('overlay', 'Overlay',vscode.ViewColumn.One, {enableScripts: true});
@@ -35,14 +42,15 @@ export function activate(context: vscode.ExtensionContext) {
     					inset: 0;
     					z-index: 0;
 						top: 30px;
-    					pointer-events: none;
+						overflow: auto;
+    					pointer-events: auto;
 					}
 
 					#canvas {
     					position: fixed;
     					inset: 0;
     					z-index: 1;
-    					pointer-events: auto;
+    					pointer-events: none;
 					}
 
 					#psize, #pcolor, #eraser {
@@ -70,7 +78,7 @@ export function activate(context: vscode.ExtensionContext) {
 				<input type="number" id="psize" name="psize" min="1" max="100" value="5" style="font-size:160%;">
 				<input type="color" id="pcolor" name="pcolor" value="blue">
 				<input type="checkbox" id="eraser" name="eraser">
-				<pre id="background">${file}</pre>
+				<pre id="background">${escapeHtml(file)}</pre>
     			<canvas id="canvas"></canvas>
     			<script src="${scriptUri}"></script>
 			</body>

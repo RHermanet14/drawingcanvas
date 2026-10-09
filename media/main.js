@@ -40,12 +40,14 @@ function getPosition(event){
 }
 
 function startPainting(event){
+  canvas.style.pointerEvents = 'auto';
   paint = true;
   getPosition(event);
 }
 
 function stopPainting(){
   paint = false;
+  canvas.style.pointerEvents = 'none';
 }
   
 function sketch(event){
