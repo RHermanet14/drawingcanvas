@@ -41,9 +41,19 @@ export function activate(context: vscode.ExtensionContext) {
     					position: fixed;
     					inset: 0;
     					z-index: 0;
-						top: 30px;
+						top: 45px;
 						overflow: auto;
     					pointer-events: auto;
+					}
+
+					#fileStyle {
+						position: fixed;
+    					inset: 0;
+    					z-index: 0;
+						top: 45px;
+						overflow: auto;
+    					pointer-events: auto;
+						background-color: transparent;
 					}
 
 					#canvas {
@@ -78,7 +88,7 @@ export function activate(context: vscode.ExtensionContext) {
 				<input type="number" id="psize" name="psize" min="1" max="100" value="5" style="font-size:160%;">
 				<input type="color" id="pcolor" name="pcolor" value="blue">
 				<input type="checkbox" id="eraser" name="eraser">
-				<pre id="background">${escapeHtml(file)}</pre>
+				<pre id="background"><code id="fileStyle">${escapeHtml(file)}</code></pre>
     			<canvas id="canvas"></canvas>
     			<script src="${scriptUri}"></script>
 			</body>
