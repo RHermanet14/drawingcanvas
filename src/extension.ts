@@ -10,13 +10,6 @@ function getFile(): string {
 	return editor.document.getText();
 }
 
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
-
 function colorFile(text: string): string {
 	return Prism.highlight(text, Prism.languages.typescript, 'typescript');
 }
