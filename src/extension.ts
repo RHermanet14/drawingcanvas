@@ -7,7 +7,13 @@ import 'prismjs/components/prism-typescript';
 function getFile(): string {
 	const editor = vscode.window.activeTextEditor;
 	if (!editor) { return ""; }
-	return editor.document.getText();
+	let file: string = "1\t" + editor.document.getText();
+	let line: number = 1;
+	file = file.replaceAll("\n", () => {
+		line++;
+		return `\n${line}\t`;
+	});
+	return file;
 }
 
 function colorFile(text: string): string {
