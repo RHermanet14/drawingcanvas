@@ -44,17 +44,19 @@ export function activate(context: vscode.ExtensionContext) {
             			overflow: hidden;
         			}
 
+					#scroll {
+						position: fixed;
+  						inset: 0;
+  						top: 45px;
+  						overflow: auto;
+					}
+
         			#background {
-    					position: fixed;
-    					inset: 0;
-    					z-index: 0;
-						top: 45px;
-						overflow: auto;
-    					pointer-events: auto;
+    					position: relative;
+  						margin: 0;
 					}
 
 					#fileStyle {
-						position: fixed;
     					inset: 0;
     					z-index: 0;
 						top: 45px;
@@ -64,10 +66,11 @@ export function activate(context: vscode.ExtensionContext) {
 					}
 
 					#canvas {
-    					position: fixed;
-    					inset: 0;
-    					z-index: 1;
-    					pointer-events: none;
+    					position: absolute;
+  						top: 0;
+  						left: 0;
+  						z-index: 1;
+  						pointer-events: none;
 					}
 
 					#psize, #pcolor, #eraser {
@@ -95,8 +98,10 @@ export function activate(context: vscode.ExtensionContext) {
 				<input type="number" id="psize" name="psize" min="1" max="100" value="5" style="font-size:160%;">
 				<input type="color" id="pcolor" name="pcolor" value="blue">
 				<input type="checkbox" id="eraser" name="eraser">
-				<pre id="background"><code id="fileStyle">${coloredFile}</code></pre>
-    			<canvas id="canvas"></canvas>
+				<div id="scroll">
+					<pre id="background"><code id="fileStyle">${coloredFile}</code></pre>
+    				<canvas id="canvas"></canvas>
+				</div>
     			<script src="${scriptUri}"></script>
 			</body>
 

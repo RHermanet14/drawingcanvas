@@ -8,6 +8,8 @@ window.addEventListener('load', ()=>{
   
 const canvas = document.querySelector('#canvas');
 const ctx = canvas.getContext('2d');
+const scroll = document.getElementById('scroll');
+const background = document.getElementById('background');
 
 const sizeInput = document.getElementById('psize');
 sizeInput.addEventListener('wheel', (event) => {
@@ -23,20 +25,21 @@ sizeInput.addEventListener('wheel', (event) => {
 
 const checkbox = document.getElementById('eraser');
 checkbox.addEventListener('change', () => {
-  ctx.globalCompositeOperation = checkbox.checked ? 'destination-out' : 'seource-over';
+  ctx.globalCompositeOperation = checkbox.checked ? 'destination-out' : 'source-over';
 });
 
 function resize(){
-  ctx.canvas.width = window.innerWidth;
-  ctx.canvas.height = window.innerHeight;
+  canvas.width = scroll.clientWidth;
+  canvas.height = background.scrollHeight;
 }
 
 let coord = {x:0 , y:0}; 
 let paint = false;
 
 function getPosition(event){
-  coord.x = event.clientX - canvas.offsetLeft;
-  coord.y = event.clientY - canvas.offsetTop;
+  const rect = canvas.getBoundingClientRect();
+  coord.x = event.clientX - rect.left;
+  coord.y = event.clientY - rect.top;
 }
 
 function startPainting(event){
