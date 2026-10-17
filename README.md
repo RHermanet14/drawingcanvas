@@ -10,6 +10,7 @@ When activated, the extension will take a reference of the last file opened in V
 
 - "@types/mocha": "^10.0.10",
 - "@types/node": "24.x",
+- "@types/prismjs": "^1.26.6",
 - "@types/vscode": "^1.138.0",
 - "@vscode/test-cli": "^0.0.15",
 - "@vscode/test-electron": "^3.0.0",

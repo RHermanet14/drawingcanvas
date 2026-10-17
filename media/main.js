@@ -29,8 +29,13 @@ checkbox.addEventListener('change', () => {
 });
 
 function resize(){
-  canvas.width = scroll.clientWidth;
-  canvas.height = background.scrollHeight;
+  const width = background.scrollWidth;
+  const height = background.scrollHeight;
+  if (canvas.width === width && canvas.height === height) { return; }
+  const saved = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  canvas.width = width;
+  canvas.height = height;
+  ctx.putImageData(saved, 0, 0);
 }
 
 let coord = {x:0 , y:0}; 

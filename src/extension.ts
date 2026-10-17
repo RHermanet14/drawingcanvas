@@ -21,8 +21,22 @@ function colorFile(text: string): string {
 }
 
 export function activate(context: vscode.ExtensionContext) {
+	let panel: vscode.WebviewPanel | undefined;
 	const init = vscode.commands.registerCommand('drawingcanvas.openWindow', () => {
-		const panel = vscode.window.createWebviewPanel('overlay', 'Overlay',vscode.ViewColumn.One, {enableScripts: true});
+		if (panel) {
+			panel.reveal(vscode.ViewColumn.One);
+			return;
+		}
+		panel = vscode.window.createWebviewPanel(
+			'overlay',
+			'Overlay',
+			vscode.ViewColumn.One,
+			{
+				enableScripts: true,
+				retainContextWhenHidden: true
+			}
+		);
+		panel.onDidDispose(() => {panel = undefined;});
 		const scriptUri = panel.webview.asWebviewUri(
 			vscode.Uri.joinPath(context.extensionUri, 'media', 'main.js')
 		);
@@ -39,8 +53,6 @@ export function activate(context: vscode.ExtensionContext) {
     			<style>
         			html, body {
             			margin: 0;
-           				width: 100%;
-            			height: 100%;
             			overflow: hidden;
         			}
 
